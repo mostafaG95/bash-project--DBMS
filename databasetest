@@ -1,0 +1,26 @@
+#!/usr/bin/bash
+export LC_COLLATE=C
+shopt -s extglob
+mkdir -p database
+cd database
+select i in CreateDB ConnectDB ListDB DropDB
+do 
+case $i in 
+CreateDB )
+source .././createDB.sh
+break
+;;
+ConnectDB )
+source .././connectDB.sh
+break
+;;
+ListDB ) 
+source .././listDB
+break
+;;
+DropDB )
+source .././dropDB
+break
+;;
+esac
+done
