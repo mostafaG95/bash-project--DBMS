@@ -7,19 +7,19 @@ select i in CreateDB ConnectDB ListDB DropDB
 do 
 case $i in 
 CreateDB )
-source .././createDB.sh
+. ./createDB.sh
 break
 ;;
 ConnectDB )
-source .././connectDB.sh
+. ./connectDB.sh
 break
 ;;
 ListDB ) 
-source .././listDB
+. ./listDB
 break
 ;;
 DropDB )
-source .././dropDB
+. ./dropDB
 break
 ;;
 esac

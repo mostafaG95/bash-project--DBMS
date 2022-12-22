@@ -1,3 +1,4 @@
+#source ../../databasetest
 echo "Enter Name of DB " 
 read name
 echo $name 
