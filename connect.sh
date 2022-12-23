@@ -34,47 +34,75 @@ awk -F':' -v value=$1 '{
 
 
 function create_table()
-{   
-    echo "pleas enter table name"
-    read table_name
-    while [[ ! $table_name =~ ^([a-zA-Z\_])+([a-zA-Z0-9\_])*$ ]];
-        do
-         echo "pleas enter a valid name choose 5 to Exit"
-         read table_name
-        done
-    while [ -e $table_name ];
-        do
-            echo "This table is already exist,please enter another name"
-            read table_name
-        done
-    touch $table_name 
-    touch "$table_name.md"
-    
-    echo "please enter the number of columns"
-    read number
-    while [[ ! $number =~ [0-99]+$ ]];
-        do
-        echo "please enter a valid number"
-        read number
-        done
-    
+{
+	echo "pleas enter table name"
+    	read table_name
+    	while [[ ! $table_name =~ ^([a-zA-Z\_])+([a-zA-Z0-9\_])*$ ]];
+        	do
+        	 echo "pleas enter a valid name choose 5 to Exit"
+        	 read table_name
+        	done
+    	while [ -e $table_name ];
+        	do
+        	    echo "This table is already exist,please enter another name"
+        	    read table_name
+        	done
+    	touch $table_name 
+    	touch "$table_name.md"
+    	echo "please enter the number of columns"
+    	read number
+    	while [[ ! $number =~ [0-99]+$ ]];
+    	    do
+    	    echo "please enter a valid number"
+    	    read number
+    	    done
     for i in $( seq 1 $number);
         do
             if (( $i==1 ));
-                then echo "please enter the primary key"
+                then echo "please enter the primary key in column $i"
                     read pk
-                    dataType
+                    echo "please enter type of key string/int"
+                    select opt in string int 
+                    do
+                    case $opt in 
+                    string )
+                    echo "string "
+                    break
+                    ;;
+                    int )
+                    echo "int "
+                    break
+                    ;;
+                    * )
+                    echo "error"
+                    ;;
+                    esac
+                    done
                 echo -n "$pk:" > $table_name
-                
+                echo -n "$stint:" > "$table_name.md"
             else   
-                echo "please enter column name"
+                echo "please enter column name in column $i" 
                 read variable
-                dataType
+                echo "please enter type of column string/int"
+                select opt in string int 
+                    do
+                    case $opt in 
+                    string )
+                    echo "string "
+                    break
+                    ;;
+                    int )
+                    echo "int "
+                    break
+                    ;;
+                    * )
+                    echo "error"
+                    ;;
+                    esac
+                    done
                 echo -n "$variable:" >> $table_name
+                echo -n "$stint:" >> "$table_name.md"
                 
-            fi
-            if (( $i==$number ));
-                then echo "" >> $table_name
             fi
         done
     
