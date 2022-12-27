@@ -32,7 +32,6 @@ awk -F':' -v value=$1 '{
 } ' "$2"
 }
 
-
 function create_table()
 {
 	echo "pleas enter table name"
@@ -108,7 +107,7 @@ function create_table()
     
 }
       
-function insert()
+function insertt()
 {
 echo "please enter table name"
     read table2
@@ -152,13 +151,54 @@ function drop_table()
 {  
 echo enter the name of the table to Delete
 read tablee
-if [ -f tablee ]; then
+if [ -f $tablee ]; then
   rm  $tablee
   echo "table Deleted successfuly"
 else
   echo "table not existed"
 fi
 }
+function delete_from_table()
+{
+echo "Enter the table name: " 
+read table
+if [[ ! -e $table ]];then
+    echo "error table not found"
+else
+    cat $table
+echo "Enter a word to delete: "
+read word
+echo "Enter the line number: "
+read line
+sed -i "${line}s/\b$word\b//" $table
+cat $table
+fi
+}      
+function updatee()
+{
+echo "Enter the input file:"
+read INPUT_FILE
 
+echo "Enter the line number:"
+read line_number
+
+echo "Enter the word number:"
+read word_number
+
+echo "Enter the word to replace:"
+read word_to_replace
+
+echo "Enter the replacement word:"
+read replacement_word
+awk -v line_number="$line_number" \
+    -v word_number="$word_number" \
+    -v replacement_word="$replacement_word" \
+'NR == line_number {
+  split($0, a, ":");
+  a[word_number] = replacement_word;
+  print a[1] ":" a[2] ":" a[3] ":" a[4]
+} NR != line_number' "$INPUT_FILE" > "$INPUT_FILE.tmp" && mv "$INPUT_FILE.tmp" "$INPUT_FILE"
+
+}
 
 

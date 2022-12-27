@@ -25,32 +25,29 @@ read name
 echo $name 
 if [ -d $name ] ; then 
 cd $name
-select y in create_tables list_tables drop insert Select
+select y in create_tables list_tables drop insert Select delete_data 
 do
 case $y in 
 create_tables )
 create_table
-break
 ;;
 list_tables )
 listing_tables
-break
 ;;
 drop )
 drop_table
-break
+;;
+delete_data )
+delete_from_table
 ;;
 update )
-echo "hello"
-break
+updatee
 ;;
 insert )
-echo "hello"
-break
+insertt
 ;;
 Select )
 echo "hello"
-break
 ;;
 esac
 done 
