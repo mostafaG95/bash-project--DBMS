@@ -247,7 +247,7 @@ function select_from_table
         echo "    "
         echo "Enter field number: "
         read field_num
-        awk -F : -v num=$field_num '{ print $num }' $tableee   
+        awk -F : -v num=$field_num '{ print $num }' $table   
     break
     ;;
 esac
